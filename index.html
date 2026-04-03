@@ -3,52 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maia Shoes | Calzado Femenino Premium</title>
-  
-  <!-- Estilos y Fuentes -->
+  <title>Maia Sport | Catálogo Femenino Premium</title>
+  <meta name="description" content="Maia Sport — Zapatillas femeninas premium. Explora nuestra colección exclusiva de Adidas, Nike, New Balance, Puma y más.">
+
+  <!-- Fuentes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
-  
-  <!-- CSS Personalizado -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
-  
-  <!-- Lucide Icons para SVG minimalistas -->
+
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="theme-dark">
 
-  <!-- ===============================
-       Navegación (Header)
-  ================================ -->
-  <header class="navbar">
+  <!-- =====================================================
+       MARCA DE AGUA (LOGO FONDO)
+  ====================================================== -->
+  <div class="watermark-bg"></div>
+
+  <!-- =====================================================
+       LOADER DE ENTRADA PREMIUM
+  ====================================================== -->
+  <div class="maia-loader" id="maiaLoader">
+    <div class="loader-logo">
+      <div class="loader-ribbon">✦</div>
+      <span class="loader-text">MAIA</span>
+      <span class="loader-sub">SPORT</span>
+    </div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+  </div>
+
+  <!-- =====================================================
+       NAVBAR
+  ====================================================== -->
+  <header class="navbar" id="mainNav">
     <div class="nav-left">
-      <a href="#" class="logo">MAIA SHOES</a>
+      <a href="#" class="logo">MAIA SPORT</a>
     </div>
     <nav class="nav-center">
-      <a href="#">CATÁLOGO</a>
-      <a href="#">COLECCIONES</a>
-      <a href="#">NOVEDADES</a>
-      <a href="#">NOSOTROS</a>
+      <a href="#hero-section">INICIO</a>
+      <a href="#catalog-section">CATÁLOGO</a>
+      <a href="#footer-section">NOSOTROS</a>
     </nav>
     <div class="nav-right">
-      <button class="icon-btn"><i data-lucide="search"></i></button>
-      <button class="icon-btn"><i data-lucide="shopping-bag"></i></button>
-      <button class="icon-btn mobile-only"><i data-lucide="menu"></i></button>
+      <button class="icon-btn" id="openCart" aria-label="Abrir carrito">
+        <i data-lucide="shopping-bag"></i>
+        <span class="cart-badge">0</span>
+      </button>
+      <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" aria-label="Menú">
+        <i data-lucide="menu"></i>
+      </button>
     </div>
   </header>
 
-  <!-- ===============================
-       Hero Section
-  ================================ -->
-  <section class="hero-section">
-    <!-- Grafiti gigante al fondo -->
+  <!-- =====================================================
+       HERO SECTION
+  ====================================================== -->
+  <section class="hero-section reveal" id="hero-section">
     <div class="bg-graffiti">ELEGANCE</div>
-    
+
     <div class="hero-content">
       <div class="hero-left">
         <h1 class="hero-title">COLECCIÓN<br>URBANA 01&trade;</h1>
-        
+
         <div class="selectors">
           <div class="selector-group">
             <span class="label">TALLA</span>
@@ -69,220 +89,83 @@
         </div>
 
         <div class="cta-wrapper">
-          <button class="circular-btn" id="btn-add-main">
+          <button class="circular-btn" id="btn-add-main" aria-label="Añadir al carrito">
             <i data-lucide="arrow-up-right"></i>
           </button>
           <div class="cta-text">
             <span class="action">AÑADIR AL CARRITO</span>
-            <span class="price">$129.99</span>
+            <span class="price">$129.000</span>
           </div>
         </div>
       </div>
-      
+
       <div class="hero-center">
-        <!-- Imagen masiva del producto -->
         <div class="main-image-wrapper">
-            <img src="images/hero_shoes.png" alt="Zapatilla Maia Urbana" class="hero-img">
+          <img src="images/hero_shoes.png" alt="Zapatilla Maia Urbana" class="hero-img">
         </div>
       </div>
-      
+
       <div class="hero-right">
         <div class="vertical-thumbnails">
-          <img src="images/shoes_detail1.png" alt="Detalle Costuras Maia">
-          <img src="images/shoes_detail2.png" alt="Perfil Casual Mujer">
+          <img src="images/shoes_detail1.png" alt="Detalle zapatilla 1">
+          <img src="images/shoes_detail2.png" alt="Detalle zapatilla 2">
         </div>
-        <div class="pagination-info">01 &mdash; 07</div>
+        <div class="pagination-info">01 &mdash; 26</div>
         <div class="social-icons">
-          <button><i data-lucide="instagram"></i></button>
-          <button><i data-lucide="twitter"></i></button>
+          <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+          <a href="#" aria-label="WhatsApp"><i data-lucide="message-circle"></i></a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===============================
-       New Collection Grid
-  ================================ -->
-  <section class="new-collection">
-    <div class="section-header">
-      <h2 class="section-title">NUEVA COLECCIÓN</h2>
-      <div class="header-meta">
-        <span class="micro-text">[ SS2026_01 ]</span>
-        <span class="micro-text">[ SNEAKERS ]</span>
+  <!-- =====================================================
+       CATÁLOGO PRINCIPAL (generado dinámicamente)
+  ====================================================== -->
+  <section class="catalog-section reveal" id="catalog-section">
+
+    <!-- Encabezado -->
+    <div class="catalog-header reveal">
+      <div class="catalog-header-left">
+        <h2 class="section-title">CATÁLOGO<br><span>COMPLETO</span></h2>
+        <p class="catalog-subtitle micro-text">[ 26 MODELOS · SS2026 ]</p>
       </div>
-      <button class="oval-btn">FILTROS</button>
+      <div class="catalog-header-right">
+        <p class="catalog-desc">Cada zapato, un universo de colores.<br>Selecciona tu tono preferido.</p>
+      </div>
     </div>
 
-    <!-- Grid Layout -->
-    <div class="catalog-grid">
-      <!-- Tarjeta Destacada Izquierda -->
-      <div class="catalog-main-feature" data-tilt>
-        <div class="feature-content">
-          <h3 class="feature-title">MAIA RUNNER&trade;</h3>
-          <div class="feature-action">
-            <button class="circular-btn sm"><i data-lucide="plus"></i></button>
-            <span>$159.00</span>
-          </div>
-        </div>
-        <!-- Grafiti de fondo en la tarjeta destacada -->
-        <span class="feature-graffiti">CASUAL</span>
-        <img src="images/hero_shoes.png" alt="Maia Runner Casual" class="feature-img">
-      </div>
-
-      <!-- Fila 1 Derecha (3 Columnas) -->
-      <div class="catalog-row top-row">
-        <!-- Tarjeta Producto 1 -->
-        <article class="product-card chamfered" data-tilt>
-          <div class="card-image-box">
-            <img src="images/shoes_silver.png" alt="Maia Silver">
-          </div>
-          <div class="card-info">
-            <div class="card-headings">
-              <h4>MAIA SILVER METALLIC</h4>
-              <p class="sub-heading">SNEAKER DE VANGUARDIA</p>
-            </div>
-            <div class="card-bottom">
-              <span class="price">$149.99</span>
-              <div class="color-swatches">
-                <button class="swatch white active"></button>
-                <button class="swatch silver"></button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Tarjeta Producto 2 -->
-        <article class="product-card chamfered" data-tilt>
-          <div class="card-image-box">
-            <img src="images/shoes_comet.png" alt="Maia Sky">
-          </div>
-          <div class="card-info">
-            <div class="card-headings">
-              <h4>MAIA PASTEL SKY</h4>
-              <p class="sub-heading">ZAPATILLA CASUAL PREMIUM</p>
-            </div>
-            <div class="card-bottom">
-              <span class="price">$129.99</span>
-              <div class="color-swatches">
-                <button class="swatch blue active"></button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Tarjeta Producto 3 -->
-        <article class="product-card chamfered" data-tilt>
-          <div class="card-image-box">
-             <img src="images/shoes_detail2.png" style="filter: brightness(0.9);" alt="Maia Elegance">
-          </div>
-          <div class="card-info">
-            <div class="card-headings">
-              <h4>MAIA ELEGANCE BLACK</h4>
-              <p class="sub-heading">SNEAKER URBANA MINIMALISTA</p>
-            </div>
-            <div class="card-bottom">
-              <span class="price">$139.99</span>
-              <div class="color-swatches">
-                <button class="swatch black active"></button>
-                <button class="swatch white"></button>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <!-- Fila 2 Abajo (4-5 Columnas) -->
-      <div class="catalog-row bottom-row">
-        <!-- 4 Replicas para llenar el look -->
-        <article class="product-card chamfered" data-tilt>
-          <div class="card-image-box">
-            <img src="images/hero_shoes.png" style="filter: sepia(0.2) hue-rotate(10deg);" alt="Zapatilla Blanca Glaciar">
-          </div>
-          <div class="card-info">
-            <div class="card-headings">
-              <h4>BLANCO CREMA</h4>
-              <p class="sub-heading">SNEAKER DEPORTIVA LIGERA</p>
-            </div>
-            <div class="card-bottom">
-              <span class="price">$119.99</span>
-              <div class="color-swatches"><button class="swatch white active"></button></div>
-            </div>
-          </div>
-        </article>
-        
-        <article class="product-card chamfered" data-tilt>
-          <div class="card-image-box">
-             <img src="images/hero_shoes.png" style="filter: sepia(0.3) hue-rotate(-20deg);" alt="Zapatilla Rosa Suave">
-          </div>
-          <div class="card-info">
-            <div class="card-headings">
-              <h4>ROSA DELICADO</h4>
-              <p class="sub-heading">SNEAKER FEMENINA CASUAL</p>
-            </div>
-            <div class="card-bottom">
-              <span class="price">$125.00</span>
-              <div class="color-swatches"><button class="swatch grey active"></button></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card chamfered" data-tilt>
-          <div class="card-image-box">
-            <img src="images/shoes_detail2.png" style="transform: scaleX(-1) scale(1.1); filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));" alt="Zapatilla Beige Ocre">
-          </div>
-          <div class="card-info">
-            <div class="card-headings">
-              <h4>BEIGE OCRE</h4>
-              <p class="sub-heading">ZAPATO DEPORTIVO ELEGANTE</p>
-            </div>
-            <div class="card-bottom">
-              <span class="price">$135.50</span>
-              <div class="color-swatches">
-                <button class="swatch grey active"></button>
-                <button class="swatch black"></button>
-              </div>
-            </div>
-          </div>
-        </article>
-        
-        <article class="product-card chamfered" data-tilt>
-          <div class="card-image-box">
-            <img src="images/shoes_comet.png" style="filter: hue-rotate(-40deg) brightness(1.1);" alt="Zapatilla Verde Agua">
-          </div>
-          <div class="card-info">
-            <div class="card-headings">
-              <h4>VERDE AGUA</h4>
-              <p class="sub-heading">SNEAKER EXCLUSIVA</p>
-            </div>
-            <div class="card-bottom">
-              <span class="price">$145.00</span>
-              <div class="color-swatches"><button class="swatch blue active"></button></div>
-            </div>
-          </div>
-        </article>
-      </div>
-
+    <!-- Tabs de filtro por marca -->
+    <div class="filter-tabs reveal">
+      <button class="filter-tab active" data-filter="TODOS">TODOS</button>
+      <button class="filter-tab" data-filter="ADIDAS">ADIDAS</button>
+      <button class="filter-tab" data-filter="NIKE">NIKE</button>
+      <button class="filter-tab" data-filter="NEW BALANCE">NEW BALANCE</button>
+      <button class="filter-tab" data-filter="PUMA">PUMA</button>
+      <button class="filter-tab" data-filter="DIESEL">DIESEL</button>
+      <button class="filter-tab" data-filter="VARIADO">VARIADO</button>
     </div>
+
+    <!-- Grid del catálogo (llenado por JS) -->
+    <div class="catalog-grid-dynamic" id="catalogGrid"></div>
+
   </section>
 
-  <!-- ===============================
-       Footer Banner Section
-  ================================ -->
-  <section class="footer-banner">
+  <!-- =====================================================
+       FOOTER BANNER
+  ====================================================== -->
+  <section class="footer-banner reveal" id="footer-section">
     <div class="banner-bg">
-      <img src="images/urban_bg.png" alt="Paisaje Urbano Elegante">
-      <div class="overlay-graffiti" style="font-size: 15vw;">MAIA SHOES</div>
+      <img src="images/urban_bg.png" alt="Paisaje Urbano">
+      <div class="overlay-graffiti">MAIA SPORT</div>
     </div>
-    
     <div class="banner-content">
       <div class="manifesto">
-        <p class="manifesto-small">MAIA SHOES NACIÓ EN<br>LA CIUDAD. NO COMO<br>UNA TENDENCIA, SINO<br>COMO ESTILO.</p>
+        <p class="manifesto-small">MAIA SPORT NACIÓ EN<br>LA CIUDAD. NO COMO<br>UNA TENDENCIA, SINO<br>COMO ESTILO.</p>
         <p class="manifesto-micro">[ COLECCIÓN : URBAN OP5_50 ]</p>
       </div>
-      
       <div class="banner-bottom">
         <h2 class="massive-text">DISEÑADOS PARA EL DÍA<br>CREADOS PARA DESTACAR<br>HECHOS PARA DURAR</h2>
-        
         <div class="technical-corner">
           <p class="manifesto-small text-right">PARA MUJERES QUE<br>CAMINAN CON<br>ELEGANCIA</p>
           <div class="barcode">
@@ -295,39 +178,73 @@
     </div>
   </section>
 
-  <!-- Modal View Interactivo -->
-  <div class="quick-view-modal" id="quickView">
-    <div class="modal-bg"></div>
-    <div class="modal-content chamfered">
-      <button class="close-modal"><i data-lucide="x"></i></button>
-      <div class="modal-layout">
-        <div class="modal-image">
-          <img src="" id="qv-img" alt="Product">
-        </div>
-        <div class="modal-details">
-          <h2 id="qv-title">PRODUCT_NAME</h2>
-          <p id="qv-desc" class="micro-text">DISEÑO EXCLUSIVO Y ERGONÓMICO CON MATERIALES DE ALTA GAMA PARA CONFORT DURANTE TODO EL DÍA. ACABADOS PREMIUM.</p>
-          <p id="qv-price" class="modal-price">$0</p>
-          
-          <div class="selector-group mt-2">
-            <span class="label">SELECCIONA TALLA</span>
-            <div class="options">
-              <button>36</button>
-              <button class="active">37</button>
-              <button>38</button>
-              <button>39</button>
-            </div>
+  <!-- =====================================================
+       MODAL DE DETALLE PREMIUM
+  ====================================================== -->
+  <div class="product-modal" id="productModal">
+    <div class="modal-bg" id="modalBg"></div>
+    <div class="modal-container chamfered">
+      <button class="close-modal" id="modalClose"><i data-lucide="x"></i></button>
+
+      <div class="modal-inner">
+        <!-- Columna izquierda: imagen + thumbnails -->
+        <div class="modal-gallery">
+          <div class="modal-main-img-box">
+            <img src="" id="modalMainImg" alt="Producto" style="transition: opacity 0.3s, transform 0.3s;">
           </div>
-          
-          <button class="oval-btn w-full mt-4">AÑADIR A LA BOLSA</button>
+          <div class="modal-thumbs" id="modalThumbs"></div>
+        </div>
+
+        <!-- Columna derecha: detalles -->
+        <div class="modal-details">
+          <span class="modal-marca" id="modalMarca">MARCA</span>
+          <h2 class="modal-title" id="modalTitle">NOMBRE DEL MODELO</h2>
+          <p class="micro-text modal-color-label" id="modalColorLabel">Color seleccionado</p>
+          <p class="modal-price" id="modalPrice">$0</p>
+
+          <div class="modal-selector-group">
+            <span class="label">SELECCIONA TU TALLA</span>
+            <div class="modal-tallas" id="modalTallas"></div>
+          </div>
+
+          <div class="modal-actions">
+            <button class="oval-btn w-full modal-add-btn" id="modalAddCart">
+              <i data-lucide="shopping-bag"></i> AÑADIR A LA BOLSA
+            </button>
+            <button class="whatsapp-btn w-full" id="modalWhatsapp">
+              <i data-lucide="message-circle"></i> CONSULTAR POR WHATSAPP
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- =====================================================
+       CART DRAWER
+  ====================================================== -->
+  <div class="cart-drawer-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>TU BOLSA <span>(0)</span></h3>
+      <button class="close-cart" id="closeCart"><i data-lucide="x"></i></button>
+    </div>
+    <div class="cart-body">
+      <div class="empty-cart-msg">Aún no hay tesoros aquí. 💕</div>
+      <div class="cart-items-container"></div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>SUBTOTAL</span>
+        <span class="total-price">$0</span>
+      </div>
+      <button class="oval-btn w-full btn-checkout">FINALIZAR COMPRA <i data-lucide="arrow-right"></i></button>
+    </div>
+  </aside>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor"></div>
+
   <script src="script.js"></script>
-  <script>
-    lucide.createIcons();
-  </script>
 </body>
 </html>
