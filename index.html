@@ -2,40 +2,102 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maia Sport | Catálogo Femenino Premium</title>
-  <meta name="description" content="Maia Sport — Zapatillas femeninas premium. Explora nuestra colección exclusiva de Adidas, Nike, New Balance, Puma y más.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-  <!-- Fuentes -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <!-- ═══ SEO PRIMARIO ═══════════════════════════════════════ -->
+  <title>Maia Sport | Catálogo Femenino Premium — Zapatos y Ropa Deportiva</title>
+  <meta name="description" content="Maia Sport — Zapatillas y ropa deportiva femenina premium. Colección exclusiva de Nike, Adidas, New Balance, Puma. Calidad y estilo para mujeres activas.">
+  <meta name="keywords" content="zapatos deportivos mujer, ropa deportiva femenina, nike mujer, adidas mujer, new balance mujer, puma mujer, maia sport, calzado femenino premium">
+  <meta name="author" content="Maia Sport">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://madarchy.github.io/Maia_Shoes/">
 
-  <!-- CSS -->
+  <!-- ═══ OPEN GRAPH (Facebook, WhatsApp preview) ════════════ -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Maia Sport | Catálogo Femenino Premium">
+  <meta property="og:description" content="Zapatillas y ropa deportiva femenina premium. Nike, Adidas, New Balance y más. Diseñadas para mujeres que no se detienen.">
+  <meta property="og:image" content="https://madarchy.github.io/Maia_Shoes/images/og-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Catálogo de zapatos y ropa Maia Sport">
+  <meta property="og:url" content="https://madarchy.github.io/Maia_Shoes/">
+  <meta property="og:site_name" content="Maia Sport">
+  <meta property="og:locale" content="es_CO">
+
+  <!-- ═══ TWITTER CARD ════════════════════════════════════════ -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Maia Sport | Catálogo Femenino Premium">
+  <meta name="twitter:description" content="Zapatillas y ropa deportiva femenina premium. Nike, Adidas, New Balance y más.">
+  <meta name="twitter:image" content="https://madarchy.github.io/Maia_Shoes/images/og-preview.jpg">
+
+  <!-- ═══ TEMA Y APARIENCIA ═══════════════════════════════════ -->
+  <meta name="theme-color" content="#3f5060">
+  <meta name="color-scheme" content="dark">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Maia Sport">
+
+  <!-- ═══ FAVICON ══════════════════════════════════════════════ -->
+  <link rel="icon" type="image/png" href="images/logo_maia_sport.png">
+  <link rel="apple-touch-icon" href="images/logo_maia_sport.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- ═══ FUENTES LOCALES ══════════════════════════════════════ -->
+  <link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/bebas-neue.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="fonts/fonts.css">
+
+  <!-- ═══ CSS PRINCIPAL ════════════════════════════════════════ -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- ═══ SCHEMA.ORG JSON-LD ══════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ClothingStore",
+    "name": "Maia Sport",
+    "description": "Catálogo de zapatillas y ropa deportiva femenina premium. Nike, Adidas, New Balance, Puma.",
+    "url": "https://madarchy.github.io/Maia_Shoes/",
+    "logo": "https://madarchy.github.io/Maia_Shoes/images/logo_maia_sport.png",
+    "image": "https://madarchy.github.io/Maia_Shoes/images/og-preview.jpg",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "availableLanguage": ["Spanish"]
+    },
+    "sameAs": [],
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "COP",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
+
+  <!-- ═══ LUCIDE ICONS — LOCAL ══════════════════════════════════ -->
+  <script src="js/lucide.min.js"></script>
 </head>
 <body class="theme-dark">
 
   <!-- =====================================================
        MARCA DE AGUA (LOGO FONDO)
   ====================================================== -->
-  <div class="watermark-bg"></div>
+  <div class="watermark-bg" aria-hidden="true"></div>
 
   <!-- =====================================================
        SIDEBAR INTERACTIVO (ZAPATOS / ROPA)
   ====================================================== -->
-  <aside class="category-sidebar visible" id="categorySidebar" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;">
+  <aside class="category-sidebar visible" id="categorySidebar" role="navigation" aria-label="Categorías de productos" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;">
     <div class="sidebar-wrapper" id="sidebarWrapper">
-      <div class="active-indicator" id="sidebarIndicator"></div>
-      <button class="cat-btn active" data-category="ZAPATOS">
-        <i data-lucide="footprints"></i>
+      <div class="active-indicator" id="sidebarIndicator" aria-hidden="true"></div>
+      <button class="cat-btn active" data-category="ZAPATOS" aria-pressed="true" aria-label="Ver catálogo de zapatos">
+        <i data-lucide="footprints" aria-hidden="true"></i>
         <span>ZAPATOS</span>
       </button>
-      <button class="cat-btn" data-category="ROPA">
-        <i data-lucide="shirt"></i>
+      <button class="cat-btn" data-category="ROPA" aria-pressed="false" aria-label="Ver catálogo de ropa">
+        <i data-lucide="shirt" aria-hidden="true"></i>
         <span>ROPA</span>
       </button>
     </div>
@@ -44,43 +106,58 @@
   <!-- =====================================================
        LOADER DE ENTRADA PREMIUM
   ====================================================== -->
-  <div class="maia-loader" id="maiaLoader">
+  <div class="maia-loader" id="maiaLoader" aria-live="assertive" aria-label="Cargando Maia Sport...">
     <div class="loader-logo">
-      <div class="loader-ribbon">✦</div>
+      <div class="loader-ribbon" aria-hidden="true">✦</div>
       <span class="loader-text">MAIA</span>
       <span class="loader-sub">SPORT</span>
     </div>
-    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <div class="loader-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+      <div class="loader-fill"></div>
+    </div>
   </div>
 
   <!-- =====================================================
        NAVBAR
   ====================================================== -->
-  <header class="navbar" id="mainNav">
+  <header class="navbar" id="mainNav" role="banner">
     <div class="nav-left">
-      <a href="#" class="logo">MAIA SPORT</a>
+      <a href="#" class="logo" aria-label="Maia Sport — Inicio">MAIA SPORT</a>
     </div>
-    <nav class="nav-center">
+    <nav class="nav-center" role="navigation" aria-label="Navegación principal">
       <a href="#hero-section">INICIO</a>
       <a href="#catalog-section">CATÁLOGO</a>
       <a href="#footer-section">NOSOTROS</a>
     </nav>
     <div class="nav-right">
-      <button class="icon-btn" id="openCart" aria-label="Abrir carrito">
-        <i data-lucide="shopping-bag"></i>
-        <span class="cart-badge">0</span>
+      <button class="icon-btn" id="openCart" aria-label="Abrir carrito de compras">
+        <i data-lucide="shopping-bag" aria-hidden="true"></i>
+        <span class="cart-badge" aria-live="polite" aria-label="Artículos en carrito">0</span>
       </button>
-      <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" aria-label="Menú">
-        <i data-lucide="menu"></i>
+      <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú móvil" aria-expanded="false">
+        <i data-lucide="menu" aria-hidden="true"></i>
       </button>
     </div>
   </header>
 
   <!-- =====================================================
+       MOBILE MENU DRAWER
+  ====================================================== -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay" aria-hidden="true"></div>
+  <nav class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Menú móvil" aria-hidden="true">
+    <button class="mobile-nav-close" id="mobileNavClose" aria-label="Cerrar menú">
+      <i data-lucide="x" aria-hidden="true"></i>
+    </button>
+    <a href="#hero-section" class="mobile-nav-link">INICIO</a>
+    <a href="#catalog-section" class="mobile-nav-link">CATÁLOGO</a>
+    <a href="#footer-section" class="mobile-nav-link">NOSOTROS</a>
+  </nav>
+
+  <!-- =====================================================
        HERO SECTION
   ====================================================== -->
-  <section class="hero-section reveal" id="hero-section">
-    <div class="bg-graffiti" id="heroGraffiti">ELEGANCE</div>
+  <section class="hero-section reveal" id="hero-section" aria-label="Presentación principal Maia Sport">
+    <div class="bg-graffiti" id="heroGraffiti" aria-hidden="true">ELEGANCE</div>
 
     <!-- ══ ESTADO: ZAPATOS ══ -->
     <div class="hero-content hero-zapatos" id="heroZapatos">
@@ -109,7 +186,7 @@
 
         <div class="cta-wrapper">
           <button class="circular-btn" id="btn-add-main" aria-label="Añadir al carrito">
-            <i data-lucide="arrow-up-right"></i>
+            <i data-lucide="arrow-up-right" aria-hidden="true"></i>
           </button>
           <div class="cta-text">
             <span class="action">AÑADIR AL CARRITO</span>
@@ -119,23 +196,23 @@
       </div>
 
       <div class="hero-center">
-        <div class="main-image-wrapper shoes-slideshow">
-          <img src="images/catalogo/zapatos/presentacion de zapatos inicio/presentacion1.png" alt="Zapatos 1" class="hero-img slide-1">
-          <img src="images/catalogo/zapatos/presentacion de zapatos inicio/presentacion2.png" alt="Zapatos 2" class="hero-img slide-2">
-          <img src="images/catalogo/zapatos/presentacion de zapatos inicio/presentacion3.png" alt="Zapatos 3" class="hero-img slide-3">
-          <div class="shoe-brand-badge">MAIA SPORT</div>
+        <div class="main-image-wrapper shoes-slideshow" aria-label="Imágenes de la colección de zapatos">
+          <img src="images/catalogo/zapatos/presentacion de zapatos inicio/presentacion1.png" alt="Colección de zapatos Maia Sport — Imagen 1" class="hero-img slide-1" loading="eager" fetchpriority="high">
+          <img src="images/catalogo/zapatos/presentacion de zapatos inicio/presentacion2.png" alt="Colección de zapatos Maia Sport — Imagen 2" class="hero-img slide-2" loading="eager">
+          <img src="images/catalogo/zapatos/presentacion de zapatos inicio/presentacion3.png" alt="Colección de zapatos Maia Sport — Imagen 3" class="hero-img slide-3" loading="eager">
+          <div class="shoe-brand-badge" aria-hidden="true">MAIA SPORT</div>
         </div>
       </div>
 
       <div class="hero-right">
-        <div class="vertical-thumbnails">
-          <img src="images/shoes_detail1.png" alt="Detalle zapatilla 1">
-          <img src="images/shoes_detail2.png" alt="Detalle zapatilla 2">
+        <div class="vertical-thumbnails" aria-hidden="true">
+          <img src="images/shoes_detail1.png" alt="">
+          <img src="images/shoes_detail2.png" alt="">
         </div>
-        <div class="pagination-info">01 &mdash; 26</div>
+        <div class="pagination-info" aria-label="Página 1 de 26">01 &mdash; 26</div>
         <div class="social-icons">
-          <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
-          <a href="#" aria-label="WhatsApp"><i data-lucide="message-circle"></i></a>
+          <a href="#" aria-label="Instagram de Maia Sport" rel="noopener"><i data-lucide="instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="WhatsApp de Maia Sport" rel="noopener"><i data-lucide="message-circle" aria-hidden="true"></i></a>
         </div>
       </div>
     </div>
@@ -146,14 +223,14 @@
         <p class="hero-eyebrow">NUEVA COLECCIÓN</p>
         <h1 class="hero-title ropa-title">MAIA<br>ACTIVE&trade;</h1>
         <p class="ropa-desc">Ropa deportiva diseñada<br>para mujeres que no se<br>detienen.</p>
-        <div class="ropa-tags">
+        <div class="ropa-tags" aria-label="Estilos disponibles">
           <span>SPORT</span>
           <span>URBAN</span>
           <span>FEM</span>
         </div>
         <div class="cta-wrapper">
-          <button class="circular-btn" aria-label="Ver colección">
-            <i data-lucide="arrow-up-right"></i>
+          <button class="circular-btn" aria-label="Ver colección de ropa">
+            <i data-lucide="arrow-up-right" aria-hidden="true"></i>
           </button>
           <div class="cta-text">
             <span class="action">VER COLECCIÓN</span>
@@ -162,26 +239,26 @@
         </div>
       </div>
 
-      <div class="ropa-models" id="ropaModelsContainer">
+      <div class="ropa-models" id="ropaModelsContainer" aria-label="Modelos de ropa Maia Sport">
         <div class="ropa-model-card model-anim-1">
-          <img src="images/catalogo/ropa/modelo1.png" alt="Modelo Maia Sport Ropa 1" class="ropa-model-img">
-          <div class="ropa-card-label">ACTIVE DRESS</div>
+          <img src="images/catalogo/ropa/modelo1.png" alt="Modelo femenino Maia Sport — conjunto deportivo 1" class="ropa-model-img" loading="eager">
+          <div class="ropa-card-label" aria-hidden="true">ACTIVE DRESS</div>
         </div>
         <div class="ropa-model-card model-anim-2">
-          <img src="images/catalogo/ropa/modelo2.png" alt="Modelo Maia Sport Ropa 2" class="ropa-model-img">
-          <div class="ropa-card-label">URBAN SET</div>
+          <img src="images/catalogo/ropa/modelo2.png" alt="Modelo femenino Maia Sport — conjunto deportivo 2" class="ropa-model-img" loading="eager">
+          <div class="ropa-card-label" aria-hidden="true">URBAN SET</div>
         </div>
       </div>
 
       <div class="hero-right">
         <div class="ropa-stat-block">
-          <span class="ropa-stat-num">03</span>
+          <span class="ropa-stat-num" aria-hidden="true">17</span>
           <span class="ropa-stat-label">MODELOS<br>DISPONIBLES</span>
         </div>
-        <div class="pagination-info">01 &mdash; 03</div>
+        <div class="pagination-info">01 &mdash; 17</div>
         <div class="social-icons">
-          <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
-          <a href="#" aria-label="WhatsApp"><i data-lucide="message-circle"></i></a>
+          <a href="#" aria-label="Instagram de Maia Sport" rel="noopener"><i data-lucide="instagram" aria-hidden="true"></i></a>
+          <a href="#" aria-label="WhatsApp de Maia Sport" rel="noopener"><i data-lucide="message-circle" aria-hidden="true"></i></a>
         </div>
       </div>
     </div>
@@ -191,13 +268,13 @@
   <!-- =====================================================
        CATÁLOGO PRINCIPAL (generado dinámicamente)
   ====================================================== -->
-  <section class="catalog-section reveal" id="catalog-section">
+  <section class="catalog-section reveal" id="catalog-section" aria-label="Catálogo de productos Maia Sport">
 
     <!-- Encabezado -->
     <div class="catalog-header reveal">
       <div class="catalog-header-left">
         <h2 class="section-title">CATÁLOGO<br><span>COMPLETO</span></h2>
-        <p class="catalog-subtitle micro-text">[ 26 MODELOS · SS2026 ]</p>
+        <p class="catalog-subtitle micro-text" id="catalogCount">[ 26 MODELOS · SS2026 ]</p>
       </div>
       <div class="catalog-header-right">
         <p class="catalog-desc">Cada zapato, un universo de colores.<br>Selecciona tu tono preferido.</p>
@@ -205,27 +282,27 @@
     </div>
 
     <!-- Tabs de filtro por marca -->
-    <div class="filter-tabs reveal">
-      <button class="filter-tab active" data-filter="TODOS">TODOS</button>
-      <button class="filter-tab" data-filter="ADIDAS">ADIDAS</button>
-      <button class="filter-tab" data-filter="NIKE">NIKE</button>
-      <button class="filter-tab" data-filter="NEW BALANCE">NEW BALANCE</button>
-      <button class="filter-tab" data-filter="PUMA">PUMA</button>
-      <button class="filter-tab" data-filter="DIESEL">DIESEL</button>
-      <button class="filter-tab" data-filter="VARIADO">VARIADO</button>
+    <div class="filter-tabs reveal" role="tablist" aria-label="Filtrar por marca">
+      <button class="filter-tab active" data-filter="TODOS" role="tab" aria-selected="true">TODOS</button>
+      <button class="filter-tab" data-filter="ADIDAS" role="tab" aria-selected="false">ADIDAS</button>
+      <button class="filter-tab" data-filter="NIKE" role="tab" aria-selected="false">NIKE</button>
+      <button class="filter-tab" data-filter="NEW BALANCE" role="tab" aria-selected="false">NEW BALANCE</button>
+      <button class="filter-tab" data-filter="PUMA" role="tab" aria-selected="false">PUMA</button>
+      <button class="filter-tab" data-filter="DIESEL" role="tab" aria-selected="false">DIESEL</button>
+      <button class="filter-tab" data-filter="VARIADO" role="tab" aria-selected="false">VARIADO</button>
     </div>
 
     <!-- Grid del catálogo (llenado por JS) -->
-    <div class="catalog-grid-dynamic" id="catalogGrid"></div>
+    <div class="catalog-grid-dynamic" id="catalogGrid" aria-live="polite" aria-label="Productos del catálogo" role="region"></div>
 
   </section>
 
   <!-- =====================================================
        FOOTER BANNER
   ====================================================== -->
-  <section class="footer-banner reveal" id="footer-section">
-    <div class="banner-bg">
-      <img src="images/urban_bg.png" alt="Paisaje Urbano">
+  <section class="footer-banner reveal" id="footer-section" aria-label="Acerca de Maia Sport">
+    <div class="banner-bg" aria-hidden="true">
+      <img src="images/urban_bg.png" alt="" loading="lazy">
       <div class="overlay-graffiti">MAIA SPORT</div>
     </div>
     <div class="banner-content">
@@ -237,7 +314,7 @@
         <h2 class="massive-text">DISEÑADOS PARA EL DÍA<br>CREADOS PARA DESTACAR<br>HECHOS PARA DURAR</h2>
         <div class="technical-corner">
           <p class="manifesto-small text-right">PARA MUJERES QUE<br>CAMINAN CON<br>ELEGANCIA</p>
-          <div class="barcode">
+          <div class="barcode" aria-hidden="true">
             || | | | | | || | |
             <span>40523 MAIA CASUAL</span>
             <span>TODOS LOS DERECHOS RESERVADOS</span>
@@ -250,39 +327,40 @@
   <!-- =====================================================
        MODAL DE DETALLE PREMIUM
   ====================================================== -->
-  <div class="product-modal" id="productModal">
+  <div class="product-modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
     <div class="modal-bg" id="modalBg"></div>
     <div class="modal-container chamfered">
-      <button class="close-modal" id="modalClose"><i data-lucide="x"></i></button>
+      <button class="close-modal" id="modalClose" aria-label="Cerrar detalle del producto"><i data-lucide="x" aria-hidden="true"></i></button>
 
       <div class="modal-inner">
         <!-- Columna izquierda: imagen + thumbnails -->
         <div class="modal-gallery">
           <div class="modal-main-img-box">
-            <img src="" id="modalMainImg" alt="Producto" style="transition: opacity 0.3s, transform 0.3s;">
+            <img src="" id="modalMainImg" alt="Producto seleccionado" style="transition: opacity 0.3s, transform 0.3s;">
           </div>
-          <div class="modal-thumbs" id="modalThumbs"></div>
+          <div class="modal-thumbs" id="modalThumbs" role="list" aria-label="Variantes de color disponibles"></div>
         </div>
 
         <!-- Columna derecha: detalles -->
         <div class="modal-details">
           <span class="modal-marca" id="modalMarca">MARCA</span>
           <h2 class="modal-title" id="modalTitle">NOMBRE DEL MODELO</h2>
-          <p class="micro-text modal-color-label" id="modalColorLabel">Color seleccionado</p>
+          <p class="micro-text modal-color-label" id="modalColorLabel" aria-live="polite">Color seleccionado</p>
           <p class="modal-price" id="modalPrice">$0</p>
 
           <div class="modal-selector-group">
-            <span class="label">SELECCIONA TU TALLA</span>
-            <div class="modal-tallas" id="modalTallas"></div>
+            <span class="label" id="modalTallasLabel">SELECCIONA TU TALLA</span>
+            <div class="modal-tallas" id="modalTallas" role="group" aria-labelledby="modalTallasLabel"></div>
           </div>
 
           <div class="modal-actions">
             <button class="oval-btn w-full modal-add-btn" id="modalAddCart">
-              <i data-lucide="shopping-bag"></i> AÑADIR A LA BOLSA
+              <i data-lucide="shopping-bag" aria-hidden="true"></i> AÑADIR A LA BOLSA
             </button>
-            <button class="whatsapp-btn w-full" id="modalWhatsapp">
-              <i data-lucide="message-circle"></i> CONSULTAR POR WHATSAPP
-            </button>
+            <a class="whatsapp-btn w-full" id="modalWhatsapp" href="#" target="_blank" rel="noopener noreferrer" aria-label="Consultar producto por WhatsApp">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              CONSULTAR POR WHATSAPP
+            </a>
           </div>
         </div>
       </div>
@@ -292,27 +370,27 @@
   <!-- =====================================================
        CART DRAWER
   ====================================================== -->
-  <div class="cart-drawer-overlay" id="cartOverlay"></div>
-  <aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-overlay" id="cartOverlay" aria-hidden="true"></div>
+  <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Tu bolsa de compras" aria-hidden="true">
     <div class="cart-header">
-      <h3>TU BOLSA <span>(0)</span></h3>
-      <button class="close-cart" id="closeCart"><i data-lucide="x"></i></button>
+      <h3>TU BOLSA <span id="cartCount">(0)</span></h3>
+      <button class="close-cart" id="closeCart" aria-label="Cerrar bolsa"><i data-lucide="x" aria-hidden="true"></i></button>
     </div>
     <div class="cart-body">
-      <div class="empty-cart-msg">Aún no hay tesoros aquí. 💕</div>
-      <div class="cart-items-container"></div>
+      <div class="empty-cart-msg" id="emptyCartMsg">Aún no hay tesoros aquí. 💕</div>
+      <div class="cart-items-container" id="cartItemsContainer" aria-live="polite"></div>
     </div>
     <div class="cart-footer">
       <div class="cart-total">
         <span>SUBTOTAL</span>
-        <span class="total-price">$0</span>
+        <span class="total-price" id="cartTotalPrice">$0</span>
       </div>
-      <button class="oval-btn w-full btn-checkout">FINALIZAR COMPRA <i data-lucide="arrow-right"></i></button>
+      <button class="oval-btn w-full btn-checkout" id="checkoutBtn">FINALIZAR COMPRA <i data-lucide="arrow-right" aria-hidden="true"></i></button>
     </div>
   </aside>
 
-  <!-- Custom Cursor -->
-  <div class="custom-cursor" id="customCursor"></div>
+  <!-- Custom Cursor (desktop only) -->
+  <div class="custom-cursor" id="customCursor" aria-hidden="true"></div>
 
   <script src="script.js"></script>
 </body>

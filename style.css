@@ -808,34 +808,54 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   justify-content: center;
   gap: 0.5rem;
   margin-top: 0.8rem;
-  padding: 0.6rem 1rem;
+  padding: 0.75rem 1rem;
+  min-height: 48px; /* WCAG touch target */
   border-radius: 50px;
-  background: rgba(37, 211, 102, 0.04);
-  border: 1px solid rgba(37, 211, 102, 0.5);
+  background: rgba(37, 211, 102, 0.06);
+  border: 1.5px solid rgba(37, 211, 102, 0.55);
   color: #25d366;
   font-family: var(--font-industrial);
   font-size: 0.62rem;
   letter-spacing: 1.5px;
-  font-weight: 600;
+  font-weight: 700;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   text-decoration: none;
   backdrop-filter: blur(4px);
+  position: relative;
+  overflow: hidden;
 }
-.card-wa-btn:hover {
-  background: #25d366;
+.card-wa-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(37, 211, 102, 0.15), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.card-wa-btn:hover { 
+  background: #25d366; 
   border-color: #25d366;
   color: #0a1a0a;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
-  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4), 0 0 0 3px rgba(37,211,102,0.1);
+  transform: translateY(-2px) scale(1.02);
 }
-.card-wa-btn i { 
-  width: 14px; 
-  height: 14px; 
-  flex-shrink: 0; 
+.card-wa-btn:hover::before { opacity: 1; }
+.card-wa-btn:active { transform: scale(0.98); }
+.card-wa-btn svg { 
+  flex-shrink: 0;
   transition: transform 0.3s ease;
 }
-.card-wa-btn:hover i {
-  transform: scale(1.15);
+.card-wa-btn:hover svg { transform: scale(1.15) rotate(-5deg); }
+
+/* Pulse animation on mobile */
+@media (max-width: 768px) {
+  .card-wa-btn {
+    animation: waPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes waPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.3); }
+    50%       { box-shadow: 0 0 0 6px rgba(37,211,102,0); }
+  }
 }
 
 /* Swatches de color */
@@ -1230,7 +1250,7 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
 }
 
 /* ============================================================
-   CURSOR PERSONALIZADO
+   CURSOR PERSONALIZADO (desktop only)
    ============================================================ */
 .custom-cursor {
   position: fixed;
@@ -1248,6 +1268,12 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   width: 38px; height: 38px;
   background: transparent;
   border: 1.5px solid var(--accent);
+}
+@media (hover: none) {
+  /* Touch devices: hide custom cursor */
+  .custom-cursor { display: none !important; }
+  body { cursor: auto; }
+  button, a { cursor: pointer; }
 }
 
 /* ============================================================
@@ -1356,7 +1382,66 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
 }
 
 /* ============================================================
-   RESPONSIVE
+   MOBILE NAV DRAWER
+   ============================================================ */
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 800;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.mobile-nav-overlay.active { opacity: 1; visibility: visible; }
+
+.mobile-nav-drawer {
+  position: fixed;
+  top: 0; right: -100%;
+  width: 80%; max-width: 300px;
+  height: 100vh;
+  background: linear-gradient(160deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+  z-index: 801;
+  display: flex;
+  flex-direction: column;
+  padding: 5rem 2.5rem 3rem;
+  gap: 0.5rem;
+  transition: right 0.4s var(--ease-out-expo);
+  border-left: 1px solid rgba(255,255,255,0.07);
+  box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+}
+.mobile-nav-drawer.open { right: 0; }
+
+.mobile-nav-close {
+  position: absolute;
+  top: 1.5rem; right: 1.5rem;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  color: var(--text-dim);
+  transition: background 0.2s, color 0.2s;
+}
+.mobile-nav-close i { width: 18px; height: 18px; }
+
+.mobile-nav-link {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: color 0.3s, padding-left 0.3s;
+  display: block;
+}
+.mobile-nav-link:hover, .mobile-nav-link:active {
+  color: var(--accent);
+  padding-left: 0.5rem;
+}
+
+/* ============================================================
+   RESPONSIVE — Tablet ≤1024px
    ============================================================ */
 @media (max-width: 1024px) {
   .hero-content   { grid-template-columns: 1fr; }
@@ -1366,19 +1451,107 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   .mobile-menu-btn { display: flex; }
   .catalog-header { grid-template-columns: 1fr; }
   .catalog-desc   { text-align: left; }
-  .modal-inner    { grid-template-columns: 1fr; }
-  .modal-main-img-box { height: 260px; }
+  .modal-inner    { grid-template-columns: 1fr; overflow-y: auto; }
+  .modal-main-img-box { height: 280px; }
   .catalog-grid-dynamic { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .hero-section { padding: 7rem 2rem 3rem; }
+  .hero-img { height: 60vh; }
+  .shoes-slideshow { height: 60vh; }
 }
 
-@media (max-width: 600px) {
-  .catalog-section { padding: 3rem 1rem; }
-  .hero-section    { padding: 7rem 1.2rem 2rem; }
-  .banner-bottom   { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-  .text-right      { text-align: left; }
-  .filter-tabs     { gap: 0.4rem; }
-  .filter-tab      { font-size: 0.58rem; padding: 0.45rem 1rem; }
-  .catalog-grid-dynamic { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
-  .card-image-box  { height: 200px; }
-  .modal-container { padding: 1.5rem; width: 98%; }
+/* ============================================================
+   RESPONSIVE — Mobile ≤768px
+   ============================================================ */
+@media (max-width: 768px) {
+  .hero-section    { padding: 6.5rem 1.2rem 2rem; min-height: auto; }
+  .hero-title      { font-size: clamp(2.4rem, 10vw, 4rem); }
+  .hero-img        { height: 52vh; }
+  .shoes-slideshow { height: 52vh; }
+  .ropa-models     { height: 55vh; }
+
+  .catalog-section  { padding: 3.5rem 1rem 6rem; }
+  .catalog-header   { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem; }
+  .catalog-desc     { text-align: left; }
+  .section-title    { font-size: clamp(2rem, 8vw, 3rem); }
+
+  .filter-tabs      { gap: 0.4rem; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .filter-tabs::-webkit-scrollbar { display: none; }
+  .filter-tab       { font-size: 0.6rem; padding: 0.5rem 1rem; white-space: nowrap; flex-shrink: 0; }
+
+  .catalog-grid-dynamic { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .card-image-box   { height: 195px; }
+  .card-info        { padding: 0.8rem; }
+  .card-headings h4 { font-size: 0.76rem; }
+  .card-wa-btn      { font-size: 0.58rem; padding: 0.65rem; }
+
+  .banner-bottom    { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .text-right       { text-align: left; }
+  .massive-text     { font-size: clamp(1.8rem, 7vw, 3rem); }
+  .footer-banner    { padding: 2rem 1.2rem; min-height: 50vh; }
+
+  .modal-container  { padding: 1.5rem; width: 98%; max-height: 95vh; border-radius: 16px; clip-path: none; }
+  .modal-inner      { gap: 1.5rem; }
+  .modal-main-img-box { height: 240px; }
+  .modal-title      { font-size: 1.6rem; }
+  .modal-price      { font-size: 1.4rem; }
+
+  .cart-drawer      { max-width: 100%; right: -100%; }
+  .cart-drawer.open { right: 0; }
+
+  .navbar           { padding: 1rem 1.2rem; }
+  .logo             { font-size: 1.5rem; }
+
+  .category-sidebar { bottom: 16px; }
+  .cat-btn          { padding: 0.55rem 1.1rem; }
+  .cat-btn span     { font-size: 0.6rem; }
+}
+
+/* ============================================================
+   RESPONSIVE — Mobile pequeño ≤480px
+   ============================================================ */
+@media (max-width: 480px) {
+  .hero-section    { padding: 5.5rem 1rem 1.5rem; }
+  .hero-title      { font-size: clamp(2rem, 11vw, 3rem); }
+  .hero-img        { height: 45vh; }
+  .shoes-slideshow { height: 45vh; }
+  .hero-eyebrow    { font-size: 0.55rem; letter-spacing: 2px; }
+  .selectors       { margin-bottom: 1.5rem; gap: 1rem; }
+  .cta-text .price { font-size: 1.2rem; }
+
+  .catalog-grid-dynamic { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  .card-image-box   { height: 170px; }
+  .card-info        { padding: 0.7rem 0.65rem; }
+  .card-wa-btn      { font-size: 0.54rem; min-height: 44px; }
+
+  .filter-tab       { font-size: 0.55rem; padding: 0.45rem 0.85rem; }
+
+  .loader-text      { font-size: 3rem; }
+  .loader-bar       { width: 120px; }
+
+  .whatsapp-btn     { font-size: 0.65rem; }
+  .oval-btn         { font-size: 0.68rem; }
+
+  .modal-thumbs     { gap: 0.4rem; }
+  .modal-thumb      { width: 54px; height: 54px; }
+
+  .ropa-models      { height: 48vh; }
+  .ropa-tags        { gap: 0.4rem; }
+  .ropa-tags span   { font-size: 0.52rem; padding: 0.3rem 0.7rem; }
+
+  /* Sidebar tabs más compacto */
+  .sidebar-wrapper  { border-radius: 40px; }
+  .cat-btn          { padding: 0.5rem 0.9rem; gap: 0.4rem; }
+  .cat-btn i        { width: 16px; height: 16px; }
+  .cat-btn span     { font-size: 0.55rem; letter-spacing: 1.5px; }
+}
+
+/* ============================================================
+   RESPONSIVE — Extra pequeño ≤360px (Galaxy S8, etc)
+   ============================================================ */
+@media (max-width: 360px) {
+  .catalog-grid-dynamic { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .card-image-box   { height: 150px; }
+  .hero-title       { font-size: clamp(1.8rem, 10vw, 2.5rem); }
+  .filter-tab       { font-size: 0.5rem; padding: 0.4rem 0.7rem; }
+  .cat-btn span     { display: none; } /* Solo íconos en móviles muy pequeños */
 }
