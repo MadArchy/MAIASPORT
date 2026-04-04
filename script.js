@@ -544,14 +544,21 @@ function initNavScroll() {
 // PARALLAX HERO
 // ============================================================
 function initHeroParallax() {
-  const heroImgs = document.querySelectorAll('.hero-img');
+  const heroImgs   = document.querySelectorAll('.hero-img');
   const bgGraffiti = document.querySelector('.bg-graffiti');
   if (!heroImgs.length) return;
+
+  // Parallax desactivado en dispositivos tactiles:
+  // las imagenes se centran via CSS transform: translate(-50%, -50%)
+  const isTouchDevice = window.matchMedia('(hover: none)').matches || ('ontouchstart' in window);
+  if (isTouchDevice) return;
+
   document.addEventListener('mousemove', (e) => {
     const x = (e.clientX / window.innerWidth  - 0.5) * 20;
     const y = (e.clientY / window.innerHeight - 0.5) * 10;
     heroImgs.forEach(img => {
       if (img.closest('.shoes-slideshow')) {
+        // Mantiene centrado base (-50%) + desplazamiento de parallax
         img.style.transform = `translate(calc(-50% + ${x * 0.6}px), calc(-50% + ${y * 0.6}px))`;
       } else {
         img.style.transform = `translate(${x * 0.6}px, ${y * 0.6}px)`;
