@@ -25,6 +25,23 @@
   <div class="watermark-bg"></div>
 
   <!-- =====================================================
+       SIDEBAR INTERACTIVO (ZAPATOS / ROPA)
+  ====================================================== -->
+  <aside class="category-sidebar visible" id="categorySidebar" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;">
+    <div class="sidebar-wrapper" id="sidebarWrapper">
+      <div class="active-indicator" id="sidebarIndicator"></div>
+      <button class="cat-btn active" data-category="ZAPATOS">
+        <i data-lucide="footprints"></i>
+        <span>ZAPATOS</span>
+      </button>
+      <button class="cat-btn" data-category="ROPA">
+        <i data-lucide="shirt"></i>
+        <span>ROPA</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- =====================================================
        LOADER DE ENTRADA PREMIUM
   ====================================================== -->
   <div class="maia-loader" id="maiaLoader">
@@ -63,10 +80,12 @@
        HERO SECTION
   ====================================================== -->
   <section class="hero-section reveal" id="hero-section">
-    <div class="bg-graffiti">ELEGANCE</div>
+    <div class="bg-graffiti" id="heroGraffiti">ELEGANCE</div>
 
-    <div class="hero-content">
+    <!-- ══ ESTADO: ZAPATOS ══ -->
+    <div class="hero-content hero-zapatos" id="heroZapatos">
       <div class="hero-left">
+        <p class="hero-eyebrow">COLECCIÓN SS2026</p>
         <h1 class="hero-title">COLECCIÓN<br>URBANA 01&trade;</h1>
 
         <div class="selectors">
@@ -100,8 +119,11 @@
       </div>
 
       <div class="hero-center">
-        <div class="main-image-wrapper">
-          <img src="images/hero_shoes.png" alt="Zapatilla Maia Urbana" class="hero-img">
+        <div class="main-image-wrapper shoes-slideshow">
+          <img src="images/catalogo/zapatos/presentacion de zapatos inicio/presentacion1.png" alt="Zapatos 1" class="hero-img slide-1">
+          <img src="images/catalogo/zapatos/presentacion de zapatos inicio/presentacion2.png" alt="Zapatos 2" class="hero-img slide-2">
+          <img src="images/catalogo/zapatos/presentacion de zapatos inicio/presentacion3.png" alt="Zapatos 3" class="hero-img slide-3">
+          <div class="shoe-brand-badge">MAIA SPORT</div>
         </div>
       </div>
 
@@ -117,6 +139,53 @@
         </div>
       </div>
     </div>
+
+    <!-- ══ ESTADO: ROPA ══ -->
+    <div class="hero-content hero-ropa" id="heroRopa">
+      <div class="ropa-left">
+        <p class="hero-eyebrow">NUEVA COLECCIÓN</p>
+        <h1 class="hero-title ropa-title">MAIA<br>ACTIVE&trade;</h1>
+        <p class="ropa-desc">Ropa deportiva diseñada<br>para mujeres que no se<br>detienen.</p>
+        <div class="ropa-tags">
+          <span>SPORT</span>
+          <span>URBAN</span>
+          <span>FEM</span>
+        </div>
+        <div class="cta-wrapper">
+          <button class="circular-btn" aria-label="Ver colección">
+            <i data-lucide="arrow-up-right"></i>
+          </button>
+          <div class="cta-text">
+            <span class="action">VER COLECCIÓN</span>
+            <span class="price">SS — 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ropa-models" id="ropaModelsContainer">
+        <div class="ropa-model-card model-anim-1">
+          <img src="images/catalogo/ropa/modelo1.png" alt="Modelo Maia Sport Ropa 1" class="ropa-model-img">
+          <div class="ropa-card-label">ACTIVE DRESS</div>
+        </div>
+        <div class="ropa-model-card model-anim-2">
+          <img src="images/catalogo/ropa/modelo2.png" alt="Modelo Maia Sport Ropa 2" class="ropa-model-img">
+          <div class="ropa-card-label">URBAN SET</div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="ropa-stat-block">
+          <span class="ropa-stat-num">03</span>
+          <span class="ropa-stat-label">MODELOS<br>DISPONIBLES</span>
+        </div>
+        <div class="pagination-info">01 &mdash; 03</div>
+        <div class="social-icons">
+          <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+          <a href="#" aria-label="WhatsApp"><i data-lucide="message-circle"></i></a>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- =====================================================

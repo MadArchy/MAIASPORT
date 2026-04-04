@@ -208,7 +208,7 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
 .cart-badge.pop { transform: scale(1.4); }
 
 /* ============================================================
-   HERO
+   HERO — DUAL STATE  (ZAPATOS / ROPA)
    ============================================================ */
 .hero-section {
   position: relative;
@@ -230,7 +230,7 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   white-space: nowrap;
   pointer-events: none;
   filter: blur(6px);
-  transition: transform 0.1s linear;
+  transition: transform 0.1s linear, opacity 0.5s ease;
 }
 
 .hero-content {
@@ -239,8 +239,54 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   width: 100%;
   z-index: 10;
   position: relative;
+  transition: all 0.6s var(--ease-out-expo);
 }
 
+/* ── Zapatos state ────── */
+.hero-zapatos {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  position: relative;
+  top: auto; left: auto;
+}
+.hero-zapatos.hidden {
+  opacity: 0;
+  transform: translateX(-60px);
+  pointer-events: none;
+  position: absolute;
+  top: 8rem; left: 2.5rem; right: 2.5rem;
+}
+
+/* ── Ropa state ────────── */
+.hero-ropa {
+  display: none;
+  opacity: 0;
+  transform: translateX(60px);
+  pointer-events: none;
+  position: absolute;
+  top: 8rem; left: 2.5rem; right: 2.5rem;
+  grid-template-columns: 2fr 3fr 1fr;
+}
+.hero-ropa.visible {
+  display: grid;
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  position: relative;
+  top: auto; left: auto; right: auto;
+}
+
+/* ── Hero eyebrow ─────── */
+.hero-eyebrow {
+  font-family: var(--font-industrial);
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+
+/* ── Hero zapatos title + accessories ── */
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(3rem, 6vw, 6rem);
@@ -296,11 +342,62 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
 
 .hero-center { display: flex; justify-content: center; align-items: flex-end; }
 
+/* ── Shoe brand badge ─── */
+.main-image-wrapper {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.shoe-brand-badge {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 8px;
+  color: rgba(255,255,255,0.18);
+  white-space: nowrap;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
 .hero-img {
   height: 82vh;
   object-fit: contain;
   filter: contrast(1.1) drop-shadow(0 20px 40px rgba(0,0,0,0.5));
   transition: transform 0.15s linear;
+}
+
+/* ── Animación Slideshow ─── */
+.shoes-slideshow {
+  position: relative;
+  width: 100%;
+  height: 82vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.shoes-slideshow img.hero-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Parallax will overwrite transform, but we need base centering if parallax isn't active */
+  opacity: 0;
+  animation: shoeCrossfade 12s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, filter;
+}
+.shoes-slideshow img.slide-1 { animation-delay: 0s; }
+.shoes-slideshow img.slide-2 { animation-delay: 4s; }
+.shoes-slideshow img.slide-3 { animation-delay: 8s; }
+
+@keyframes shoeCrossfade {
+  0%   { opacity: 0; filter: blur(10px) drop-shadow(0 20px 40px rgba(0,0,0,0.5)); }
+  5%   { opacity: 1; filter: blur(0) drop-shadow(0 20px 40px rgba(0,0,0,0.5)); }
+  28%  { opacity: 1; filter: blur(0) drop-shadow(0 20px 40px rgba(0,0,0,0.5)); }
+  33%  { opacity: 0; filter: blur(10px) drop-shadow(0 20px 40px rgba(0,0,0,0.5)); }
+  100% { opacity: 0; filter: blur(10px) drop-shadow(0 20px 40px rgba(0,0,0,0.5)); }
 }
 
 .hero-right { display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 2rem; }
@@ -320,9 +417,173 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
 .social-icons i { width: 18px; height: 18px; color: var(--text-dim); }
 
 /* ============================================================
+   HERO STATE: ROPA — Presentación editorial
+   ============================================================ */
+.ropa-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ropa-title {
+  background: linear-gradient(135deg, var(--text) 60%, var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+}
+
+.ropa-desc {
+  font-family: var(--font-industrial);
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+}
+
+.ropa-tags {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
+}
+.ropa-tags span {
+  font-family: var(--font-industrial);
+  font-size: 0.58rem;
+  letter-spacing: 2px;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50px;
+  color: var(--text-dim);
+}
+
+/* ── Ropa model loop animation (No backgrounds) ─── */
+.ropa-models {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 80vh;
+}
+
+.ropa-model-card {
+  position: absolute;
+  height: 90%;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.model-anim-1 {
+  animation: modeLoop1 14s infinite;
+  z-index: 2;
+}
+
+.model-anim-2 {
+  animation: modeLoop2 14s infinite;
+  z-index: 1;
+}
+
+@keyframes modeLoop1 {
+  0%, 25% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    z-index: 3;
+  }
+  28%, 55% {
+    opacity: 0;
+    transform: translateX(0) scale(0.95);
+    z-index: 1;
+  }
+  58%, 95% {
+    opacity: 1;
+    transform: translateX(-120px) scale(0.95);
+    z-index: 3;
+  }
+  98%, 100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    z-index: 3;
+  }
+}
+
+@keyframes modeLoop2 {
+  0%, 25% {
+    opacity: 0;
+    transform: translateX(0) scale(0.95);
+    z-index: 1;
+  }
+  28%, 55% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    z-index: 3;
+  }
+  58%, 95% {
+    opacity: 1;
+    transform: translateX(120px) scale(0.95);
+    z-index: 2;
+  }
+  98%, 100% {
+    opacity: 0;
+    transform: translateX(0) scale(0.95);
+    z-index: 1;
+  }
+}
+
+.ropa-model-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6)) contrast(1.1) brightness(1.05);
+  transition: transform 0.5s ease;
+}
+.ropa-model-card:hover .ropa-model-img { transform: scale(1.03); }
+
+.ropa-card-label {
+  margin-top: -3rem;
+  z-index: 5;
+  font-family: var(--font-industrial);
+  font-size: 0.58rem;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.7);
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  padding: 0.3rem 0.7rem;
+  border-radius: 2px;
+}
+
+/* ── Ropa stat block ──── */
+.ropa-stat-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.4rem;
+}
+.ropa-stat-num {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--accent);
+}
+.ropa-stat-label {
+  font-family: var(--font-industrial);
+  font-size: 0.58rem;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-align: right;
+  line-height: 1.6;
+}
+
+/* ============================================================
    CATÁLOGO SECTION
    ============================================================ */
-.catalog-section { padding: 5rem 2.5rem; }
+.catalog-section {
+  padding: 5rem 2.5rem 8rem;
+  overflow: hidden;
+  position: relative;
+}
 
 .catalog-header {
   display: grid;
@@ -397,7 +658,8 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1.5rem;
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.4s ease;
+  align-items: start;
 }
 
 /* ── Product Card ────────────────────────────────────────── */
@@ -427,9 +689,9 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 0.3s ease, transform 0.3s ease, transform 0.5s ease;
+  transition: opacity 0.3s ease;
 }
-.product-card:hover .card-main-img { transform: scale(1.06); }
+/* Sin hover scale en la imagen */
 
 /* Overlay al hover */
 .card-img-overlay {
@@ -510,6 +772,70 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   font-weight: 700;
   font-size: 0.9rem;
   color: var(--text);
+}
+
+/* ── Badge disponible ──────────────────────── */
+.card-badge-disponible {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  font-family: var(--font-industrial);
+  font-size: 0.52rem;
+  letter-spacing: 2px;
+  color: #0a1a0a;
+  background: linear-gradient(135deg, #7bd47b, #4caf50);
+  padding: 0.25rem 0.7rem;
+  border-radius: 50px;
+  font-weight: 700;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ── Color count ───────────────────────────── */
+.card-color-count {
+  font-family: var(--font-industrial);
+  font-size: 0.58rem;
+  letter-spacing: 1.5px;
+  color: var(--text-dim);
+  margin: 0.4rem 0 0.6rem;
+  opacity: 0.75;
+}
+
+/* ── WhatsApp CTA ──────────────────────────── */
+.card-wa-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+  padding: 0.6rem 1rem;
+  border-radius: 50px;
+  background: rgba(37, 211, 102, 0.04);
+  border: 1px solid rgba(37, 211, 102, 0.5);
+  color: #25d366;
+  font-family: var(--font-industrial);
+  font-size: 0.62rem;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  text-decoration: none;
+  backdrop-filter: blur(4px);
+}
+.card-wa-btn:hover {
+  background: #25d366;
+  border-color: #25d366;
+  color: #0a1a0a;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+  transform: translateY(-2px);
+}
+.card-wa-btn i { 
+  width: 14px; 
+  height: 14px; 
+  flex-shrink: 0; 
+  transition: transform 0.3s ease;
+}
+.card-wa-btn:hover i {
+  transform: scale(1.15);
 }
 
 /* Swatches de color */
@@ -716,18 +1042,32 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   letter-spacing: 1.5px;
   padding: 0.85rem 1.6rem;
   border-radius: 50px;
-  background: rgba(37,211,102,0.15);
+  background: rgba(37, 211, 102, 0.05);
   color: #25d366;
-  border: 1px solid rgba(37,211,102,0.3);
+  border: 1px solid rgba(37, 211, 102, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  transition: background 0.3s, transform 0.2s;
+  gap: 0.6rem;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   width: 100%;
+  text-decoration: none;
 }
-.whatsapp-btn i { width: 15px; height: 15px; }
-.whatsapp-btn:hover { background: rgba(37,211,102,0.25); transform: scale(1.02); }
+.whatsapp-btn i { 
+  width: 16px; 
+  height: 16px; 
+  transition: transform 0.3s ease;
+}
+.whatsapp-btn:hover { 
+  background: #25d366; 
+  color: #0a1a0a;
+  border-color: #25d366;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25);
+  transform: translateY(-2px); 
+}
+.whatsapp-btn:hover i {
+  transform: scale(1.15);
+}
 
 /* ============================================================
    CART DRAWER
@@ -926,6 +1266,94 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
    ============================================================ */
 .mt-2 { margin-top: 1rem; }
 .mt-4 { margin-top: 2rem; }
+
+/* ============================================================
+   SIDEBAR DE CATEGORÍAS (ZAPATOS / ROPA)
+   ============================================================ */
+.category-sidebar {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  z-index: 9999;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+/* clase .visible no cambia nada — ya está visible por defecto */
+.category-sidebar.visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+.sidebar-wrapper {
+  background: rgba(16, 24, 32, 0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 50px;
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  position: relative;
+  z-index: 1;
+}
+
+.active-indicator {
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: 0;
+  width: 0;
+  background: var(--text);
+  border-radius: 50px;
+  z-index: -1;
+  transition: all 0.4s var(--ease-spring);
+  pointer-events: none;
+}
+
+.cat-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  padding: 0.6rem 1.6rem;
+  border-radius: 50px;
+  z-index: 2;
+}
+.cat-btn:hover {
+  color: var(--text);
+  background: transparent;
+}
+.cat-btn i {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s var(--ease-spring);
+}
+.cat-btn:hover i {
+  transform: scale(1.15) translateY(-2px);
+}
+.cat-btn span {
+  font-family: var(--font-industrial);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  writing-mode: horizontal-tb;
+  transform: none;
+  margin-top: 0;
+}
+.cat-btn.active {
+  color: var(--bg-darker);
+  font-weight: 600;
+  background: transparent;
+  box-shadow: none;
+}
+.cat-btn.active i {
+  filter: none;
+}
 
 /* ============================================================
    RESPONSIVE
