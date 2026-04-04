@@ -1614,3 +1614,55 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   .filter-tab       { font-size: 0.5rem; padding: 0.4rem 0.7rem; }
   .cat-btn span     { display: none; } /* Solo íconos en móviles muy pequeños */
 }
+
+/* ── BARRA SOCIAL MÓVIL (FLOTANTE) ── */
+.mobile-social-bar {
+  display: none;
+  position: fixed;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+  gap: 12px;
+  z-index: 10001;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 15px 10px;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .mobile-social-bar { display: flex; }
+}
+
+body.modal-open .mobile-social-bar {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) translateX(20px);
+}
+
+.mobile-social-bar a {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  background: rgba(255, 255, 255, 0.06);
+  text-decoration: none;
+}
+
+.mobile-social-bar a svg {
+  width: 18px;
+  height: 18px;
+}
+
+.mobile-social-bar a:nth-child(1):active { background: #000; color: #fff; }
+.mobile-social-bar a:nth-child(2):active { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); color: #fff; }
+.mobile-social-bar a:nth-child(3):active { background: #25d366; color: #fff; }

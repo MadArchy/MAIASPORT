@@ -703,7 +703,8 @@ function renderCard(prod, idx, grid) {
   }
 
   // Eventos de swatches de color
-  card.querySelectorAll('.swatch-dot').forEach(dot => {
+  const swatches = card.querySelectorAll('.swatch-dot');
+  swatches.forEach(dot => {
     dot.addEventListener('click', (e) => {
       e.stopPropagation();
       const img   = card.querySelector('.card-main-img');
@@ -715,7 +716,7 @@ function renderCard(prod, idx, grid) {
       }, 200);
       label.textContent = dot.dataset.color;
       updateWaLink(dot.dataset.color);
-      card.querySelectorAll('.swatch-dot').forEach(s => {
+      swatches.forEach(s => {
         s.classList.remove('active');
         s.style.borderColor = 'rgba(255,255,255,0.25)';
       });
@@ -725,6 +726,42 @@ function renderCard(prod, idx, grid) {
   });
 
   // Clic en la tarjeta â†’ abrir modal
+  if (numColores > 1) {
+    let currentIdx = 0;
+    let rotationActive = true;
+    const rotationInterval = setInterval(() => {
+      if (!rotationActive) return;
+      currentIdx = (currentIdx + 1) % numColores;
+      const targetDot = swatches[currentIdx];
+      if (targetDot) {
+        const img = card.querySelector('.card-main-img');
+        const label = card.querySelector('.card-color-label');
+        if (img) {
+          img.style.opacity = '0';
+          setTimeout(() => {
+            img.src = targetDot.dataset.img;
+            img.onload = () => { if(img) img.style.opacity = '1'; };
+          }, 200);
+        }
+        if (label) label.textContent = targetDot.dataset.color;
+        updateWaLink(targetDot.dataset.color);
+        swatches.forEach(s => {
+          s.classList.remove('active');
+          s.style.borderColor = 'rgba(255,255,255,0.25)';
+        });
+        targetDot.classList.add('active');
+        targetDot.style.borderColor = 'rgba(255,255,255,0.85)';
+      }
+    }, 4000);
+
+    swatches.forEach(dot => {
+      dot.addEventListener('mousedown', () => {
+        rotationActive = false;
+        clearInterval(rotationInterval);
+      });
+    });
+  }
+
   card.addEventListener('click', () => openModal(prod));
 
   grid.appendChild(card);
