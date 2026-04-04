@@ -5,7 +5,7 @@
 // ============================================================
 // CONFIGURACION GLOBAL
 // ============================================================
-const WA_NUMBER = '573000000000'; // Cambia por el numero real de Maia Sport
+const WA_NUMBER = '573142497844'; // Maia Sport — WhatsApp oficial
 
 // ============================================================
 // FASE 1: DATOS DEL CATÁLOGO COMPLETO
@@ -776,7 +776,13 @@ function openModal(prod) {
   modalEl.classList.add('active');
   modalEl.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
-  // Focus the close button for accessibility
+  // Ocultar sidebar flotante para no tapar botones del modal
+  const sidebar = document.getElementById('categorySidebar');
+  if (sidebar) {
+    sidebar.style.opacity      = '0';
+    sidebar.style.transform    = 'translateX(-50%) translateY(20px)';
+    sidebar.style.pointerEvents = 'none';
+  }
   setTimeout(() => document.getElementById('modalClose')?.focus(), 100);
 }
 
@@ -785,6 +791,18 @@ function closeModal() {
   modalEl.classList.remove('active');
   modalEl.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
+  // Volver a mostrar el sidebar flotante (si el footer no está visible)
+  const sidebar = document.getElementById('categorySidebar');
+  const footer  = document.getElementById('footer-section');
+  if (sidebar) {
+    const footerRect = footer ? footer.getBoundingClientRect() : null;
+    const footerVisible = footerRect && footerRect.top < window.innerHeight * 0.92;
+    if (!footerVisible) {
+      sidebar.style.opacity      = '1';
+      sidebar.style.transform    = 'translateX(-50%) translateY(0)';
+      sidebar.style.pointerEvents = 'auto';
+    }
+  }
 }
 
 function renderModal(prod, variantIdx) {
@@ -869,16 +887,101 @@ function initCartDrawer() {
   document.getElementById('openCart')?.addEventListener('click',  toggleCart);
   document.getElementById('closeCart')?.addEventListener('click', toggleCart);
   document.getElementById('cartOverlay')?.addEventListener('click', toggleCart);
-  // hero btn add
+
+  // Botón hero: añadir al carrito
   document.getElementById('btn-add-main')?.addEventListener('click', (e) => {
     e.stopPropagation();
-    addToCart({ id: 'hero', nombre: 'Maia Urbana 01â„¢', precio: 129000, selectedColor: 'Beige', selectedImg: 'images/hero_shoes.png', selectedTalla: '38' });
+    addToCart({ id: 'hero', nombre: 'Maia Urbana 01™', precio: 129000, selectedColor: 'Beige', selectedImg: 'images/hero_shoes.png', selectedTalla: '38' });
   });
+
+  // ── Botón Finalizar Compra → WhatsApp Factura ──────────────
+  document.getElementById('checkoutBtn')?.addEventListener('click', checkoutViaWhatsApp);
 }
 
 function toggleCart() {
   document.getElementById('cartOverlay')?.classList.toggle('active');
   document.getElementById('cartDrawer')?.classList.toggle('open');
+}
+
+// ============================================================
+// CHECKOUT VÍA WHATSAPP — Factura detallada
+// ============================================================
+function checkoutViaWhatsApp() {
+  if (cartItems.length === 0) {
+    // Animación de shake en el carrito vacío
+    const emptyMsg = document.querySelector('.empty-cart-msg');
+    if (emptyMsg) {
+      emptyMsg.style.color = '#ff6b6b';
+      emptyMsg.textContent = '⚠️ Agrega productos antes de finalizar.';
+      setTimeout(() => {
+        emptyMsg.style.color = '';
+        emptyMsg.textContent = 'Aún no hay tesoros aquí. 💕';
+      }, 2500);
+    }
+    return;
+  }
+
+  // Número de pedido único (fecha + aleatorio)
+  const now     = new Date();
+  const pad     = n => String(n).padStart(2, '0');
+  const pedidoId = `MS-${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}-${Math.floor(Math.random()*9000)+1000}`;
+  const fecha    = `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
+  const hora     = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+
+  // Construir líneas de artículos
+  let total = 0;
+  const lineas = cartItems.map((item, i) => {
+    total += item.precio;
+    const precio = item.precio.toLocaleString('es-CO');
+    return [
+      `${i + 1}️⃣ *${item.nombre}*`,
+      `   🏷️ Marca: ${item.marca || 'Maia Sport'}`,
+      `   🎨 Color: ${item.selectedColor || 'N/A'}`,
+      `   👟 Talla: ${item.selectedTalla || 'N/A'}`,
+      `   💵 Precio: $${precio} COP`,
+    ].join('\n');
+  }).join('\n\n');
+
+  const totalFmt = total.toLocaleString('es-CO');
+
+  const mensaje = [
+    `🛍️ *PEDIDO MAIA SPORT*`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `📋 *N° Pedido:* ${pedidoId}`,
+    `📅 *Fecha:* ${fecha}  🕐 ${hora}`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `📦 *ARTÍCULOS (${cartItems.length}):*`,
+    ``,
+    lineas,
+    ``,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `💳 *TOTAL: $${totalFmt} COP*`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `📍 *Por favor confirma:*`,
+    `   • Disponibilidad de tallas`,
+    `   • Método de pago`,
+    `   • Dirección de envío`,
+    ``,
+    `¡Gracias por elegir Maia Sport! 💕👟`,
+  ].join('\n');
+
+  const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, '_blank');
+
+  // Confirmar visualmente en el botón
+  const btn = document.getElementById('checkoutBtn');
+  if (btn) {
+    const original = btn.innerHTML;
+    btn.innerHTML  = '✅ ¡Pedido enviado!';
+    btn.style.background = '#25d366';
+    btn.style.color      = '#0a1a0a';
+    setTimeout(() => {
+      btn.innerHTML        = original;
+      btn.style.background = '';
+      btn.style.color      = '';
+      lucide.createIcons();
+    }, 3000);
+  }
 }
 
 function addToCart(prod) {
@@ -1004,6 +1107,40 @@ function initCategorySidebar() {
   setTimeout(updateIndicator, 50);
   window.addEventListener('resize', updateIndicator);
 
+  // ── Ocultar sidebar en el footer, mostrar en hero/catálogo ──
+  const footerSection  = document.getElementById('footer-section');
+  const catalogSection = document.getElementById('catalog-section');
+  const heroSection    = document.getElementById('hero-section');
+
+  function hideSidebar() {
+    sidebar.style.opacity   = '0';
+    sidebar.style.transform = 'translateX(-50%) translateY(20px)';
+    sidebar.style.pointerEvents = 'none';
+  }
+
+  function showSidebar() {
+    sidebar.style.opacity   = '1';
+    sidebar.style.transform = 'translateX(-50%) translateY(0)';
+    sidebar.style.pointerEvents = 'auto';
+  }
+
+  // Aseguramos transición suave en el sidebar
+  sidebar.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+
+  if (footerSection) {
+    const obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          hideSidebar();
+        } else {
+          showSidebar();
+        }
+      });
+    }, { threshold: 0.08 });
+
+    obs.observe(footerSection);
+  }
+
   btns.forEach(function(btn) {
     btn.addEventListener('click', function() {
       if (btn.classList.contains('active')) return;
@@ -1012,6 +1149,17 @@ function initCategorySidebar() {
       CURRENT_CATEGORY = btn.dataset.category;
       updateIndicator();
       switchHero(CURRENT_CATEGORY);
+
+      // ── Ocultar/Mostrar filtros de marcas ──
+      const filterTabsContainer = document.querySelector('.filter-tabs');
+      if (filterTabsContainer) {
+        if (CURRENT_CATEGORY === 'ROPA') {
+          filterTabsContainer.style.display = 'none';
+        } else {
+          filterTabsContainer.style.display = 'flex';
+        }
+      }
+
       document.querySelectorAll('.filter-tab').forEach(function(t) { t.classList.remove('active'); });
       var tabTodos = document.querySelector('.filter-tab[data-filter="TODOS"]');
       if (tabTodos) tabTodos.classList.add('active');

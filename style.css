@@ -415,8 +415,65 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
 .vertical-thumbnails img:hover { opacity: 1; border-color: var(--accent); }
 
 .pagination-info { font-family: var(--font-industrial); font-size: 0.72rem; letter-spacing: 2px; color: var(--text-dim); }
-.social-icons { display: flex; gap: 1rem; }
-.social-icons i { width: 18px; height: 18px; color: var(--text-dim); }
+/* ── ÍCONOS SOCIALES PREMIUM ──────────────── */
+.social-icons { 
+  display: flex; 
+  gap: 0.8rem; 
+  margin-top: 1rem;
+}
+.social-icons a {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-dim);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  backdrop-filter: blur(4px);
+  text-decoration: none;
+}
+.social-icons i { 
+  width: 18px; 
+  height: 18px; 
+  stroke-width: 2.2px;
+  transition: transform 0.4s var(--ease-spring);
+}
+
+/* Hover general */
+.social-icons a:hover {
+  transform: translateY(-4px);
+  color: #fff;
+  border-color: rgba(255,255,255,0.2);
+}
+.social-icons a:hover i {
+  transform: scale(1.1);
+}
+
+/* TikTok Brand Style */
+.social-icons a[aria-label*="TikTok"]:hover {
+  background: #000;
+  box-shadow: 0 0 20px rgba(255, 0, 80, 0.3), 0 0 10px rgba(0, 242, 234, 0.3);
+  border-color: #00f2ea;
+  color: #fff;
+}
+
+/* Instagram Brand Style */
+.social-icons a[aria-label*="Instagram"]:hover {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  box-shadow: 0 8px 20px rgba(214, 36, 159, 0.3);
+  border-color: transparent;
+}
+
+/* WhatsApp Brand Style */
+.social-icons a[aria-label*="WhatsApp"]:hover {
+  background: #25d366;
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+  border-color: #25d366;
+  color: #fff;
+}
 
 /* ============================================================
    HERO STATE: ROPA — Presentación editorial
@@ -1304,7 +1361,7 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   left: 50%;
   transform: translateX(-50%) translateY(0);
   z-index: 9999;
-  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 /* clase .visible no cambia nada — ya está visible por defecto */
 .category-sidebar.visible {
@@ -1471,7 +1528,7 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   .shoes-slideshow { height: 52vh; }
   .ropa-models     { height: 55vh; }
 
-  .catalog-section  { padding: 3.5rem 1rem 6rem; }
+  .catalog-section  { padding: 3.5rem 1rem 8rem; }
   .catalog-header   { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem; }
   .catalog-desc     { text-align: left; }
   .section-title    { font-size: clamp(2rem, 8vw, 3rem); }

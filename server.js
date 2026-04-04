@@ -37,7 +37,7 @@ const SECURITY_HEADERS = {
 function getCacheControl(ext) {
   if (['woff2', 'woff', 'ttf'].includes(ext)) return 'public, max-age=31536000, immutable';
   if (['jpg','jpeg','png','webp','gif','svg'].includes(ext)) return 'public, max-age=86400';
-  if (ext === 'css' || ext === 'js') return 'public, max-age=3600';
+  if (ext === 'css' || ext === 'js') return 'no-cache, no-store, must-revalidate';
   return 'no-cache';
 }
 
