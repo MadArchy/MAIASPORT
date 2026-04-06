@@ -422,8 +422,8 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   margin-top: 1rem;
 }
 .social-icons a {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1533,15 +1533,15 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   .catalog-desc     { text-align: left; }
   .section-title    { font-size: clamp(2rem, 8vw, 3rem); }
 
-  .filter-tabs      { gap: 0.4rem; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .filter-tabs      { gap: 0.4rem; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; scrollbar-width: none; scroll-snap-type: x mandatory; padding-right: 1.2rem; }
   .filter-tabs::-webkit-scrollbar { display: none; }
-  .filter-tab       { font-size: 0.6rem; padding: 0.5rem 1rem; white-space: nowrap; flex-shrink: 0; }
+  .filter-tab       { font-size: 0.6rem; padding: 0.5rem 1rem; min-height: 44px; white-space: nowrap; flex-shrink: 0; scroll-snap-align: start; }
 
   .catalog-grid-dynamic { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
   .card-image-box   { height: 195px; }
   .card-info        { padding: 0.8rem; }
   .card-headings h4 { font-size: 0.76rem; }
-  .card-wa-btn      { font-size: 0.58rem; padding: 0.65rem; }
+  .card-wa-btn      { font-size: 0.65rem; padding: 0.65rem; min-height: 44px; }
 
   .banner-bottom    { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
   .text-right       { text-align: left; }
@@ -1560,7 +1560,7 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   .navbar           { padding: 1rem 1.2rem; }
   .logo             { font-size: 1.5rem; }
 
-  .category-sidebar { bottom: 16px; }
+  .category-sidebar { bottom: calc(16px + env(safe-area-inset-bottom)); }
   .cat-btn          { padding: 0.55rem 1.1rem; }
   .cat-btn span     { font-size: 0.6rem; }
 }
@@ -1580,9 +1580,9 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
   .catalog-grid-dynamic { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
   .card-image-box   { height: 170px; }
   .card-info        { padding: 0.7rem 0.65rem; }
-  .card-wa-btn      { font-size: 0.54rem; min-height: 44px; }
+  .card-wa-btn      { font-size: 0.65rem; min-height: 44px; }
 
-  .filter-tab       { font-size: 0.55rem; padding: 0.45rem 0.85rem; }
+  .filter-tab       { font-size: 0.55rem; padding: 0.45rem 0.85rem; min-height: 44px; }
 
   .loader-text      { font-size: 3rem; }
   .loader-bar       { width: 120px; }
@@ -1619,7 +1619,7 @@ button { cursor: none; background: none; border: none; color: inherit; font-fami
 .mobile-social-bar {
   display: none;
   position: fixed;
-  right: 15px;
+  right: calc(15px + env(safe-area-inset-right));
   top: 50%;
   transform: translateY(-50%);
   flex-direction: column;
@@ -1646,8 +1646,8 @@ body.modal-open .mobile-social-bar {
 }
 
 .mobile-social-bar a {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
