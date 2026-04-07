@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maia Sport — Panel Admin</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Fuentes locales (mismas del sitio principal) -->
+  <link rel="preload" href="../fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../fonts/bebas-neue.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../fonts/fonts.css">
+
+  <!-- Icono local (lucide) -->
+  <script src="../js/lucide.min.js"></script>
+
+  <!-- Estilos del Admin -->
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- =====================================================
+       PANTALLA DE LOGIN
+  ====================================================== -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-card">
+      <div class="login-logo">
+        <span class="login-ribbon">✦</span>
+        <span class="login-brand">MAIA SPORT</span>
+        <span class="login-sub">PANEL ADMIN</span>
+      </div>
+
+      <div class="login-form">
+        <label for="tokenInput" class="login-label">GitHub Personal Access Token</label>
+        <input
+          type="password"
+          id="tokenInput"
+          class="login-input"
+          placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <p class="login-hint">
+          Solo el administrador autorizado puede acceder.<br>
+          <a href="https://github.com/settings/tokens/new?scopes=repo&description=Maia+Sport+Admin" target="_blank" rel="noopener">
+            Crear token en GitHub →
+          </a>
+        </p>
+        <button id="loginBtn" class="btn-primary" onclick="handleLogin()">
+          <i data-lucide="log-in"></i>
+          INGRESAR AL PANEL
+        </button>
+        <div id="loginError" class="login-error" style="display:none">
+          Token inválido o sin permisos. Verifica e intenta de nuevo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       PANEL PRINCIPAL (oculto hasta login)
+  ====================================================== -->
+  <div id="adminPanel" class="admin-panel" style="display:none">
+
+    <!-- TOPBAR -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <span class="admin-brand">✦ MAIA SPORT</span>
+        <span class="admin-role">ADMIN</span>
+      </div>
+      <div class="topbar-center">
+        <span id="statsTotal" class="stat-chip">— productos</span>
+        <span id="statsZapatos" class="stat-chip">— zapatos</span>
+        <span id="statsRopa" class="stat-chip">— conjuntos</span>
+      </div>
+      <div class="topbar-right">
+        <div id="saveStatus" class="save-status status-ok">
+          <i data-lucide="check-circle"></i>
+          Sincronizado
+        </div>
+        <button class="btn-ghost" onclick="handleLogout()">
+          <i data-lucide="log-out"></i>
+          Salir
+        </button>
+      </div>
+    </header>
+
+    <!-- TOOLBAR -->
+    <div class="admin-toolbar">
+      <div class="toolbar-left">
+        <div class="search-box">
+          <i data-lucide="search"></i>
+          <input type="text" id="searchInput" placeholder="Buscar producto, marca..." oninput="filterProducts()">
+        </div>
+        <div class="cat-filter-group" role="group">
+          <button class="cat-filter active" data-cat="TODOS" onclick="setCatFilter(this)">TODOS</button>
+          <button class="cat-filter" data-cat="ZAPATOS" onclick="setCatFilter(this)">ZAPATOS</button>
+          <button class="cat-filter" data-cat="ROPA" onclick="setCatFilter(this)">ROPA</button>
+        </div>
+      </div>
+      <div class="toolbar-right">
+        <button class="btn-primary" onclick="openModal(null)">
+          <i data-lucide="plus"></i>
+          NUEVO PRODUCTO
+        </button>
+      </div>
+    </div>
+
+    <!-- LISTA DE PRODUCTOS -->
+    <main class="admin-main">
+      <div id="productList" class="product-list"></div>
+      <div id="emptyState" class="empty-state" style="display:none">
+        <i data-lucide="package-open"></i>
+        <p>No se encontraron productos</p>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- =====================================================
+       MODAL CREAR / EDITAR PRODUCTO
+  ====================================================== -->
+  <div id="productModal" class="modal-overlay" style="display:none" onclick="handleOverlayClick(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modalTitle" class="modal-headline">NUEVO PRODUCTO</h2>
+        <button class="modal-close" onclick="closeModal()">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Columna 1: Info básica -->
+        <div class="modal-col">
+          <div class="field-group">
+            <label class="field-label">ID único <span class="required">*</span></label>
+            <input type="text" id="fId" class="field-input" placeholder="ej: adidas-27">
+            <p class="field-hint">Minúsculas, sin espacios, con guión. Ej: nike-nuevo</p>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Nombre del producto <span class="required">*</span></label>
+            <input type="text" id="fNombre" class="field-input" placeholder="Adidas Street Classic">
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label">Marca <span class="required">*</span></label>
+              <input type="text" id="fMarca" class="field-input" placeholder="Adidas">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Categoría <span class="required">*</span></label>
+              <select id="fCategoria" class="field-select">
+                <option value="ZAPATOS">ZAPATOS</option>
+                <option value="ROPA">ROPA</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Precio (COP) <span class="required">*</span></label>
+            <input type="number" id="fPrecio" class="field-input" placeholder="159000" min="0">
+          </div>
+          <div class="field-group">
+            <label class="field-label">Tallas disponibles</label>
+            <div id="tallasWrapper">
+              <!-- Se genera dinámicamente en JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna 2: Variantes de color -->
+        <div class="modal-col">
+          <div class="variantes-header">
+            <label class="field-label">Variantes de color</label>
+            <button class="btn-add-variant" onclick="addVariant()">
+              <i data-lucide="plus"></i> Agregar variante
+            </button>
+          </div>
+          <div id="variantesContainer" class="variantes-container"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-ghost" onclick="closeModal()">Cancelar</button>
+        <button class="btn-primary" onclick="saveProduct()">
+          <i data-lucide="save"></i>
+          GUARDAR Y PUBLICAR
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       MODAL CONFIRMACIÓN ELIMINACIÓN
+  ====================================================== -->
+  <div id="deleteModal" class="modal-overlay" style="display:none" onclick="handleDeleteOverlayClick(event)">
+    <div class="modal-box modal-sm">
+      <div class="modal-header">
+        <h2 class="modal-headline">⚠️ ELIMINAR PRODUCTO</h2>
+      </div>
+      <div class="modal-body">
+        <p class="delete-msg">¿Eliminar <strong id="deleteProductName"></strong>?</p>
+        <p class="delete-warn">Esta acción no se puede deshacer. El producto dejará de verse en el sitio.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-ghost" onclick="closeDeleteModal()">Cancelar</button>
+        <button class="btn-danger" onclick="confirmDelete()">
+          <i data-lucide="trash-2"></i>
+          Sí, eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST de notificaciones -->
+  <div id="toast" class="toast" style="display:none"></div>
+
+  <!-- Lógica del Admin -->
+  <script src="admin.js"></script>
+</body>
+</html>

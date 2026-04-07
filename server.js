@@ -49,6 +49,9 @@ http.createServer((req, res) => {
 
   if (decoded === '/') decoded = '/index.html';
 
+  // Resolver carpetas → index.html (ej: /admin/ → /admin/index.html)
+  if (decoded.endsWith('/')) decoded = decoded + 'index.html';
+
   const filePath = path.join(BASE, decoded.replace(/\//g, path.sep));
 
   // Basic path traversal protection
