@@ -477,16 +477,30 @@ async function confirmDelete() {
   await pushToGitHub();
 }
 
-// ── PUSH A GITHUB ──────────────────────────────────────────────
+// ── PUSH A GITHUB + GUARDAR LOCAL ─────────────────────────────
 async function pushToGitHub() {
   setSaveStatus('saving');
   renderProductList();
   updateStats();
 
   try {
+    // 1. Guardar en GitHub (fuente de verdad)
     await githubSave(state.catalog);
+
+    // 2. Guardar también en el archivo local (solo cuando corremos en dev)
+    //    En GitHub Pages /api/save-catalog no existe → falla silenciosamente
+    try {
+      await fetch('/api/save-catalog', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ productos: state.catalog }),
+      });
+    } catch (_) {
+      // Silencioso en producción (GitHub Pages no tiene este endpoint)
+    }
+
     setSaveStatus('ok');
-    showToast('✅ Catálogo guardado en GitHub. El sitio se actualizará en ~30 segundos.', 'ok');
+    showToast('✅ Guardado. Los cambios ya son visibles en el sitio.', 'ok');
   } catch (err) {
     setSaveStatus('error');
     showToast('❌ Error al guardar: ' + err.message, 'error');
